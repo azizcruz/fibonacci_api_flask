@@ -17,19 +17,18 @@ class Fib(Resource):
     ''' Handling the fibonacci numbers request '''
     def get(self, start_idx, end_idx):
         # Start the fibonacci.
-        time_start = time.clock()
+        time_start = time.process_time()
         data = [fibonacci(n) for n in range(start_idx, end_idx)]
-        time_elapsed = (time.clock() - time_start)
-        mem_usage = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+        time_elapsed = (time.process_time() - time_start)
+
         # To include the last fibonacci number.
         data.append(fibonacci(end_idx))
 
         # Include benchmark results.
-        data.append({'benchmark': {
-            'time': f'{time_elapsed: .5f}',
-            'memory_usage': mem_usage
-            }
-        })
+        # data.append({'benchmark': {
+        #     'time_elapsed': f'{time_elapsed: .5f}',
+        #     }
+        # })
 
         # Log to database
         fib_data = FibData(start=start_idx, end=end_idx)
@@ -47,7 +46,7 @@ class HealthCheck(Resource):
                 'first_name': 'Abdelaziz',
                 'last_name': 'Abdelioua',
                 'condition': 'Critical',
-                'disease': 'Pythonligia',
+                'disease': 'Pythonlia',
                 'symptoms': f'Addicted to a programming language that is called { desease }'
             }
         ]
